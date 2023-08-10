@@ -6,7 +6,6 @@ class Manager:
         self.funkcje = {}
         self.konto = []
         self.historia = []
-
         self.magazyn = {}
 
     def assing(self, nazwa):
@@ -59,8 +58,8 @@ def zapisz_w_pliku(manager):
 @manager.assing('saldo')
 def saldo(manager,operacja,kwota):
     print('Wybrales saldo')
-    # operacja = str.lower(input('Podaj rodzaj operacji w -wpłata, p - platość:  '))
-    # kwota = float(input('Podaj kwotę: '))
+    # operacja = str.lower(input(operacja))
+    # kwota = float(input(kwota))
     if operacja == 'w':
         manager.konto += kwota
         zadanie = f"Dokonano {operacja} na kwotę {kwota}"
