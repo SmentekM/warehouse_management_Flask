@@ -4,32 +4,31 @@ from klasa_manager import *
 app = Flask(__name__)
 
 
-def konto():
-    manager.execute('wczytanie_plikow')
-    return manager.konto
-def magazyn():
-    manager.execute('wczytanie_plikow')
-    return manager.magazyn
-def hist():
-    manager.execute('wczytanie_plikow')
-    return manager.historia
-
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
     title = "Witaj na stronie głownej Twojej firmy"
-    nazwa = str(request.form.get("nazwa"))
-    ilosc = float(request.form.get("ilosc",0))
+    manager.execute('wczytanie_plikow')
+
+    # nazwa = str(request.form.get("nazwa"))
+    # ilosc = float(request.form.get("ilosc",0))
     operacja = str(request.form.get("rodzaj"))
-    kwota = float(request.form.get("kwota",0))
+    kwota = request.form.get("kwota")
+    if operacja and kwota:
+        kwota=float(kwota)
+        saldo(manager,operacja=operacja,kwota = kwota)
+    manager.execute('zapisz_w_pliku')
+    # manager.execute('saldo',1000)
+
+
 
     context = {
         "title": title,
-        "saldo": konto(),
-        "magazyn": magazyn(),
+        "saldo": manager.konto,
+        "magazyn": manager.magazyn,
         # "sprzedaż": sprzedaz(konto, produkt_do_przedazy= nazwa,ilosc_do_sprzedazy=ilosc),
         # "konto": saldo( operacja=operacja, kwota=kwota),
-        "zapis": manager.execute('zapisz_w_pliku')
+
     }
     return render_template('strona glowna.html', context=context)
 
@@ -38,7 +37,7 @@ def history():
     title = "Historia operacji"
     context = {
         "title": title,
-        "historia": hist()
+         "historia": manager.historia
 
     }
     return render_template('history.html', context=context)
