@@ -31,7 +31,7 @@ def wczytanie_plikow(manager):
             for ele in f:
                 manager.konto = float(ele)
 
-    if not os.path.exists('saldo.txt'):
+    if not os.path.exists('przeglad.txt'):
         manager.historia = []
     else:
         with open('przeglad.txt', 'r') as f:
@@ -133,7 +133,7 @@ def zakup(manager, produkt, cena_zakupu, ilosc):
                 'cena zakupu': cena_zakupu,
                 'ilosc': ilosc,
             }}
-            ilosc += ilosc
+            ilosc = manager.magazyn[produkt]['ilosc'] + ilosc
             manager.magazyn[produkt] = {'cena': cena_zakupu, 'ilosc': ilosc}
 
             zadanie = f"zakupiono {produkt}: cena: {cena_zakupu} ilość: {zakupiona_ilosc}"
