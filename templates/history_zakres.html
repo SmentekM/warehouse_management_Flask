@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Histoia operacji</title>
+    <title>Histoia operacji w wybranym zakresie</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
   </head>
 
@@ -13,27 +13,10 @@
 
     <div>
       <a href="/"  class="btn btn-danger"> Strona główna</a>
-
+      <a href="/history"  class="btn btn-danger"> Historia</a>
     </div>
 
-    <h3>Historia: {{context.historia}} </h3>
-
-    <h3 class="mt-5">Podaj zakres histori:</h3>
-
-
-      <form action="/history" method="POST">
-      <div class="mb-3">
-        <label for="start" class="form-label">Początek</label>
-        <input type="number" placeholder="Podaj początek zakresu" class="form-control" id="start" name="start">
-
-      </div>
-      <div class="mb-3">
-        <label for="koniec" class="form-label">Koniec</label>
-        <input type="number" placeholder="Podaj koniec zakresu" class="form-control" id="koniec" name="koniec">
-      </div>
-
-      <button type="submit" class="btn btn-primary">Zatwierdź</button>
-    </form>
+    <h3>Historia z wybranego zakresu: {{context.historia}} </h3>
 
 
 
