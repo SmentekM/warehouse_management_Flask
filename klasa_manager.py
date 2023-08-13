@@ -11,6 +11,7 @@ class Manager:
     def assing(self, nazwa):
         def decorate(cb):
             self.funkcje[nazwa] = cb
+            return cb
         return decorate
 
     def execute(self, nazwa):
@@ -77,10 +78,10 @@ def saldo(manager,operacja,kwota):
 
 
 @manager.assing('sprzedaz')
-def sprzedaz(manager):
+def sprzedaz(manager,produkt_do_przedazy,ilosc_do_sprzedazy):
     print('Wybrałeś sprzedaż produktu.')
-    produkt_do_przedazy = str(input(' Podaj produkt do sprzedaży: '))
-    ilosc_do_sprzedazy = float(input('Podaj ilość produktów do spredaży: '))
+    # produkt_do_przedazy = str(input(' Podaj produkt do sprzedaży: '))
+    # ilosc_do_sprzedazy = float(input('Podaj ilość produktów do spredaży: '))
     if produkt_do_przedazy not in manager.magazyn:
         print('Produktu nie ma w magazynie. Nie może zostac sprzedany.')
     if produkt_do_przedazy in manager.magazyn:
@@ -117,11 +118,11 @@ def sprzedaz(manager):
                   f' W magazynie jest {ilosc_produktu}')
 
 @manager.assing('zakup')
-def zakup(manager):
+def zakup(manager, produkt, cena_zakupu, ilosc):
     print('Wybrałeś zakup produktu.')
-    produkt = str(input('Podaj nazwę produktu: '))
-    cena_zakupu = float(input('Podaj cenę produktu: '))
-    ilosc = float(input('Podaj ilosc produktów: '))
+    # produkt = str(input('Podaj nazwę produktu: '))
+    # cena_zakupu = float(input('Podaj cenę produktu: '))
+    # ilosc = float(input('Podaj ilosc produktów: '))
     zakupiona_ilosc = ilosc
     if cena_zakupu <= 0:
         print('Podano niewłaściwą cenę zakupu!')
@@ -177,10 +178,10 @@ def magazyn(manager):
         print(f'Stan dla wybranego produktu: {wybrany_produkt} - {manager.magazyn[wybrany_produkt]}')
 
 @manager.assing('przeglad')
-def przeglad(manager):
+def przeglad(manager,od, do):
     print('Wybrales przeglad histori wykonanych akcji.')
-    od = input('Podaj poczatek zakresu: ')
-    do = input('Podaj koniec zakresu: ')
+    # od = input('Podaj poczatek zakresu: ')
+    # do = input('Podaj koniec zakresu: ')
     liczba_akcji = len(manager.historia)
     if od:
         od = int(od)
@@ -191,7 +192,7 @@ def przeglad(manager):
     else:
         do = liczba_akcji
     if od < 0 or od > liczba_akcji or do < 0 or do > liczba_akcji:
-        print(f'Podałeś zły zakres. Liczba wszytskich akcji wynosi: {liczba_akcji}')
+        return f'Podałeś zły zakres. Liczba wszystkich akcji wynosi: {liczba_akcji}'
     else:
         print(f'Twoj zakres to od {od} do {do}')
-        print(manager.historia[od: do])
+        return manager.historia[od: do]
